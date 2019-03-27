@@ -1,5 +1,6 @@
 package com.riska.riskatulmahmudah.antrianpasien;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -19,11 +20,15 @@ public class PasienActivity extends AppCompatActivity {
     List<ResultAntrianItem>list;
     AdapterPasien adapter;
 
+    public static String no;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pasien);
         rvpasien = findViewById(R.id.rvpasien);
+
+        Intent intent = getIntent();
+        no= intent.getStringExtra("no");
 
         initData();
 

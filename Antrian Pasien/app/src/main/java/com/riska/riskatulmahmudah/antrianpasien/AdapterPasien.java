@@ -1,6 +1,7 @@
 package com.riska.riskatulmahmudah.antrianpasien;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,6 +34,11 @@ public class AdapterPasien extends RecyclerView.Adapter<AdapterPasien.MyHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
+        if (i+1== Integer.valueOf(PasienActivity.no)){
+            myHolder.antrianNo.setTextColor(Color.parseColor("#76c7c0"));
+        } else {
+            myHolder.antrianNo.setTextColor(Color.parseColor("#000000"));
+        }
         myHolder.antrianNo.setText(String.valueOf(list.get(i).getPasienAntrian()));
 
     }
