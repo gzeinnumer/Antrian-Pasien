@@ -23,6 +23,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class LoginPasienActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "GoogleActivity";
@@ -35,6 +41,8 @@ public class LoginPasienActivity extends BaseActivity implements View.OnClickLis
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+
+    String emailUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,9 +137,38 @@ public class LoginPasienActivity extends BaseActivity implements View.OnClickLis
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginPasienActivity.this, "test", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), PasienActivity.class);
+
+                            updateUI(user);
+                            
+//                            RetroServer.getInstance().login(emailUser).enqueue(new Callback<ResponseLogin>() {
+//                                @Override
+//                                public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+//                                    if (response.isSuccessful()){
+//                                        if (response.body().getKode() == 1){
+//                                            List<ResultLoginItem> list = response.body().getResultLogin();
+//                                            if (list.get(0).getUserStatus().equals("admin")){
+//                                                Intent intent = new Intent(getApplicationContext(), DokterActivity.class);
+//                                                startActivity(intent);
+//                                            } else if (list.get(0).getUserStatus().equals("user")){
+//                                                Intent intent = new Intent(getApplicationContext(), LoginNoPasient.class);
+//                                                intent.putExtra("user_id", list.get(0).getUserId());
+//                                                startActivity(intent);
+//                                            } else {
+//                                                Toast.makeText(LoginPasienActivity.this, "Kamu belum terdaftar", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onFailure(Call<ResponseLogin> call, Throwable t) {
+//
+//                                }
+//                            });
+
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                             startActivity(intent);
-                            //updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -187,6 +224,9 @@ public class LoginPasienActivity extends BaseActivity implements View.OnClickLis
         if (user != null) {
             mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+
+
+            emailUser = user.getEmail();
 
             findViewById(R.id.signInButton).setVisibility(View.GONE);
             findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);

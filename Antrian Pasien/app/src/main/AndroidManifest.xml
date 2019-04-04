@@ -22,7 +22,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".PerawatActivity" />
+        <activity android:name=".PerawatActivity" >
+
+        </activity>
         <activity android:name=".PasienActivity" />
         <activity android:name=".LoginPerawatActivity" />
         <activity android:name=".LoginPasienActivity" />

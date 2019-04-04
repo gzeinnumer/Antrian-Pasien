@@ -7,7 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -16,11 +18,13 @@ public class AdapterPerawat extends RecyclerView.Adapter<AdapterPerawat.MyHolder
 
     //to do 6 deklarasikan context dan array, pada array pecahkan bohlam dan create class dataandtrian
     private Context context;
-    private ArrayList<ResultAntrianItem> list;
+    private ArrayList<ResponseAntrianAPI> list;
+
+    private MyOnItemClick click;
 
     //to do 7 create construktor
 
-    public AdapterPerawat(Context context, ArrayList<ResultAntrianItem> list) {
+    public AdapterPerawat(Context context, ArrayList<ResponseAntrianAPI> list) {
         this.context = context;
         this.list = list;
     }
@@ -37,47 +41,58 @@ public class AdapterPerawat extends RecyclerView.Adapter<AdapterPerawat.MyHolder
 
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
-        //18 - 3 baris-
-        String temp1 = list.get(i).getPasienId();
-        String temp2 = list.get(i).getDokterId();
-        //myHolder.antrianNo.setText(String.valueOf(list.get(i).getPasienAntrian()));
-        myHolder.antrianNo.setText(String.valueOf(i+1));
-        myHolder.antrianNama.setText(String.valueOf(list.get(i).getPasienNama()));
-        myHolder.antrianAlamat.setText(String.valueOf(list.get(i).getPasienAlamat()));
+    public void onBindViewHolder(@NonNull MyHolder myHolder, final int i) {
+        myHolder.antrianID.setText(list.get(i).getAntrianID());
+        myHolder.dokterID.setText(list.get(i).getDokterID());
+        myHolder.dokterName.setText(list.get(i).getDokterName());
+        myHolder.tgl.setText(list.get(i).getTgl());
+        myHolder.jam.setText(list.get(i).getJam());
+        myHolder.rsid.setText(list.get(i).getRSID());
+        myHolder.noAntrian.setText(String.valueOf(list.get(i).getNoAntrian()));
+        myHolder.noUrut.setText(String.valueOf(list.get(i).getNoUrut()));
+        myHolder.namaPasient.setText(list.get(i).getNamaPasien());
     }
 
     @Override
     public int getItemCount() {
-       //19
+        //19
         return list.size();
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.antrianNo)
-        TextView antrianNo;
-        @BindView(R.id.antrianNama)
-        TextView antrianNama;
-        @BindView(R.id.antrianAlamat)
-        TextView antrianAlamat;
+        @BindView(R.id.antrianID)
+        TextView antrianID;
+        @BindView(R.id.dokterID)
+        TextView dokterID;
+        @BindView(R.id.dokterName)
+        TextView dokterName;
+        @BindView(R.id.tgl)
+        TextView tgl;
+        @BindView(R.id.jam)
+        TextView jam;
+        @BindView(R.id.rsid)
+        TextView rsid;
+        @BindView(R.id.noAntrian)
+        TextView noAntrian;
+        @BindView(R.id.noUrut)
+        TextView noUrut;
+        @BindView(R.id.namaPasient)
+        TextView namaPasient;
+
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             //16.
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
-    //17 hapus sisa nya
-   // static class ViewHolder {
-        //15 copy yang di komentar ke myholder
-        //@BindView(R.id.antrianNo)
-        //TextView antrianNo;
-        //@BindView(R.id.antrianNama)
-        //TextView antrianNama;
-        //@BindView(R.id.antrianAlamat)
-        //TextView antrianAlamat;
 
-   //     ViewHolder(View view) {
-    //       ButterKnife.bind(this, view);
-    //    }
-   // }
+    public interface MyOnItemClick {
+        void onItemClick(int position);
+    }
+
+
+    public void setOnClickListener2(MyOnItemClick onClick) {
+        click = onClick;
+    }
+
 }

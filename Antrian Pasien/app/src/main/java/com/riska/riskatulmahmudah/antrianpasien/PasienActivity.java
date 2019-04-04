@@ -16,7 +16,7 @@ import retrofit2.Response;
 
 public class PasienActivity extends AppCompatActivity {
     RecyclerView rvpasien;
-    ArrayList<ResultAntrianItem> mList = new ArrayList<>();
+    ArrayList<ResponseAntrianAPI> mList = new ArrayList<>();
     List<ResultAntrianItem>list;
     AdapterPasien adapter;
 
@@ -34,31 +34,36 @@ public class PasienActivity extends AppCompatActivity {
 
     }
     public void initData(){
-        //for(int i=0;i<10;i++){
-         //   mList.add(new DataAntrian(i,"Nama Antrian "+i,"Alamat Antrian "+i));
-        //}
-        String dokter_id ="";
-        RetroServer.getInstance().readAntrian(dokter_id).enqueue(new Callback<ResponseAntrian>() {
-            @Override
-            public void onResponse(Call<ResponseAntrian> call, Response<ResponseAntrian> response) {
-                list = response.body().getResultAntrian();
-                for (int i=0; i<list.size(); i++){
-                    String temp1 = list.get(i).getPasienId();
-                    String temp2 = list.get(i).getPasienNama();
-                    String temp3 = list.get(i).getDokterId();
-                    String temp4 = list.get(i).getPasienAlamat();
-                    String temp5 = list.get(i).getPasienAntrian();
+        RetroServer.getInstance().readAntrianAPI(
+                "agusbudiman@gmail.com",
+                "04-04-2019",
+                "09:00:00",
+                "RSPWD")
+                .enqueue(new Callback<List<ResponseAntrianAPI>>() {
+                    @Override
+                    public void onResponse(Call<List<ResponseAntrianAPI>> call, Response<List<ResponseAntrianAPI>> response) {
 
-                    mList.add(new ResultAntrianItem(temp1, temp2, temp3, temp4, temp5));
-                }
-                initToRecycler();
-            }
+                        List<ResponseAntrianAPI> list = response.body();
+                        for (int i=0; i<list.size(); i++){
+                            mList.add(new ResponseAntrianAPI(
+                                    list.get(i).getDokterID(),
+                                    list.get(i).getNoUrut(),
+                                    list.get(i).getAntrianID(),
+                                    list.get(i).getNoAntrian(),
+                                    list.get(i).getJam(),
+                                    list.get(i).getTgl(),
+                                    list.get(i).getRSID(),
+                                    list.get(i).getNamaPasien(),
+                                    list.get(i).getDokterName()));
+                        }
+                        initToRecycler();
+                    }
 
-            @Override
-            public void onFailure(Call<ResponseAntrian> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<List<ResponseAntrianAPI>> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
 
     }
     public void initToRecycler(){

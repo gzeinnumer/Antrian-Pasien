@@ -129,7 +129,6 @@ public class LoginPerawatActivity extends BaseActivity implements View.OnClickLi
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginPerawatActivity.this, "test", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), DokterActivity.class);
                             startActivity(intent);
                             //updateUI(user);

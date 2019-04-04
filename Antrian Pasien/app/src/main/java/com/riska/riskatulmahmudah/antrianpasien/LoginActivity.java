@@ -16,10 +16,26 @@ public class LoginActivity extends AppCompatActivity {
         btnpasien=(Button)findViewById(R.id.btnpasien);
         btnperawat=(Button)findViewById(R.id.btnperawat);
 
+//        btnperawat.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(),LoginPerawatActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        btnpasien.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Intent intent = new Intent(getApplicationContext(),LoginPasienActivity.class);
+//                Intent intent = new Intent(getApplicationContext(),LoginNoPasient.class);
+//                startActivity(intent);
+//            }
+//        });
+
         btnperawat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),LoginPerawatActivity.class);
+                Intent intent = new Intent(getApplicationContext(),PerawatActivity.class);
                 startActivity(intent);
             }
         });
@@ -27,9 +43,32 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Intent intent = new Intent(getApplicationContext(),LoginPasienActivity.class);
-                Intent intent = new Intent(getApplicationContext(),LoginNoPasient.class);
+                Intent intent = new Intent(getApplicationContext(),PasienActivity.class);
                 startActivity(intent);
             }
         });
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
